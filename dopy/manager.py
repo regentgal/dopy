@@ -108,7 +108,7 @@ class DoManager(object):
                 'backups_enabled': str(backups_enabled).lower(),
             }
             if ssh_key_ids:
-                # Need to be a comma separated string 
+                # Need to be a comma separated string
                 if type(ssh_key_ids) == list:
                     ssh_key_ids = ','.join(ssh_key_ids)
                 params['ssh_key_ids'] = ssh_key_ids
@@ -274,7 +274,7 @@ class DoManager(object):
         if self.api_version == 2:
             json = self.request('/images?private=true')
             return json['images']
-        else: 
+        else:
             params = {'filter': 'my_images'}
             json = self.request('/images/', params)
             return json['images']
@@ -468,7 +468,7 @@ class DoManager(object):
             json = self.request('/floating_ips')
             return json['floating_ips']
         else:
-            raise DoError(v2_api_required_str)
+            raise DoError(self.v2_api_required_str)
 
     def new_floating_ip(self, **kwargs):
         """
@@ -493,7 +493,7 @@ class DoManager(object):
                 json = self.request('/floating_ips', params=params, method='POST')
                 return json['floating_ip']
         else:
-            raise DoError(v2_api_required_str)
+            raise DoError(self.v2_api_required_str)
 
     def destroy_floating_ip(self, ip_addr):
         """
@@ -502,7 +502,7 @@ class DoManager(object):
         if self.api_version == 2:
             self.request('/floating_ips/' + ip_addr, method='DELETE')
         else:
-            raise DoError(v2_api_required_str)
+            raise DoError(self.v2_api_required_str)
 
     def assign_floating_ip(self, ip_addr, droplet_id):
         """
@@ -514,7 +514,7 @@ class DoManager(object):
             json = self.request('/floating_ips/' + ip_addr + '/actions', params=params, method='POST')
             return json['action']
         else:
-            raise DoError(v2_api_required_str)
+            raise DoError(self.v2_api_required_str)
 
     def unassign_floating_ip(self, ip_addr):
         """
@@ -527,7 +527,7 @@ class DoManager(object):
             json = self.request('/floating_ips/' + ip_addr + '/actions', params=params, method='POST')
             return json['action']
         else:
-            raise DoError(v2_api_required_str)
+            raise DoError(self.v2_api_required_str)
 
     def list_floating_ip_actions(self, ip_addr):
         """
@@ -537,7 +537,7 @@ class DoManager(object):
             json = self.request('/floating_ips/' + ip_addr + '/actions')
             return json['actions']
         else:
-            raise DoError(v2_api_required_str)
+            raise DoError(self.v2_api_required_str)
 
     def get_floating_ip_action(self, ip_addr, action_id):
         """
@@ -547,7 +547,7 @@ class DoManager(object):
             json = self.request('/floating_ips/' + ip_addr + '/actions/' + action_id)
             return json['action']
         else:
-            raise DoError(v2_api_required_str)
+            raise DoError(self.v2_api_required_str)
 
 #low_level========================================
     def request(self, path, params={}, method='GET'):
